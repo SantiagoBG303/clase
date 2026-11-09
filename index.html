@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MiStartup | Crece con nosotros</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='40' height='40' rx='10' fill='url(%23g)'/%3E%3Cpath d='M20 6c6 5 7 12 5 20H15c-2-8-1-15 5-20z' fill='%23fff'/%3E%3Ccircle cx='20' cy='16' r='2.6' fill='%234338ca'/%3E%3Cpath d='M15 22l-5 6 5-1zM25 22l5 6-5-1z' fill='%23fff'/%3E%3Cpath d='M17.5 27q2.5 8 5 0z' fill='%23fbbf24'/%3E%3C/svg%3E">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -29,20 +30,22 @@ body{font-family:'Segoe UI',Arial,Helvetica,sans-serif;color:#e8eaff;background:
 .orb{position:fixed;z-index:1;pointer-events:none;animation:flota 7s ease-in-out infinite;font-size:var(--z,50px);opacity:.9}
 @keyframes flota{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-30px) rotate(15deg)}}
 
-/* Navbar */
+/* Navbar y logo */
 nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
-  padding:16px 6%;background:rgba(7,11,36,.7);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)}
-.brand{font-size:22px;font-weight:800;display:flex;gap:10px;align-items:center}
+  padding:14px 6%;background:rgba(7,11,36,.7);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)}
+.brand{font-size:22px;font-weight:800;display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit}
+.brand svg{width:40px;height:40px;filter:drop-shadow(0 0 10px rgba(236,72,153,.6));transition:.4s}
+.brand:hover svg{transform:rotate(-8deg) scale(1.1)}
 .brand span{background:linear-gradient(135deg,#38bdf8,#a78bfa,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
 .menu{display:flex;gap:30px;align-items:center}
 .menu a{color:#c7cbff;text-decoration:none;font-size:15px;transition:.2s}
 .menu a:hover{color:#fff}
 .btn-nav{padding:10px 22px;border-radius:30px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff!important;font-weight:600}
 
-section{position:relative;z-index:2;padding:100px 6%}
+section{position:relative;z-index:2;padding:70px 6%}
 
 /* Hero */
-.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;padding-top:130px}
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;padding-top:120px}
 .tag{display:inline-block;padding:8px 16px;border-radius:30px;background:rgba(99,102,241,.2);border:1px solid rgba(129,140,248,.5);font-size:13px;margin-bottom:22px;animation:pulso 2.5s infinite}
 .hero h1{font-size:clamp(36px,5vw,62px);line-height:1.1;font-weight:800;margin-bottom:22px}
 .grad{background:linear-gradient(90deg,#38bdf8,#a78bfa,#f472b6,#fbbf24,#38bdf8);background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:brillo 6s linear infinite}
@@ -72,19 +75,18 @@ button:disabled{opacity:.6;animation:none}
 @keyframes pulso{0%{box-shadow:0 0 0 0 rgba(236,72,153,.55)}70%{box-shadow:0 0 0 16px rgba(236,72,153,0)}100%{box-shadow:0 0 0 0 rgba(236,72,153,0)}}
 #msg{margin-top:16px;font-weight:700;min-height:22px}
 .small{font-size:12px;color:#7d84c9;margin-top:14px}
+.invite-video{margin:0 0 20px}
+.invite-video-frame{padding:2px;border-radius:18px;background:linear-gradient(135deg,#6366f1,#ec4899);box-shadow:0 0 28px rgba(236,72,153,.25)}
+.invite-video video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#070b24;border-radius:16px}
+button.video-sound{width:auto;padding:9px 16px;margin-top:10px;border:1px solid rgba(236,72,153,.65);border-radius:999px;background:rgba(13,18,51,.92);background-size:auto;font-size:14px;animation:none;box-shadow:0 0 18px rgba(99,102,241,.3)}
+.invite-copy{margin-top:9px;color:#c7cbff;font-size:14px}
+.invite-copy a{color:#f0abfc;font-weight:700;text-decoration:none}
+.invite-copy a:hover{text-decoration:underline}
 
 /* Títulos de sección */
-.title{text-align:center;max-width:700px;margin:0 auto 55px}
-.title h2{font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:14px}
+.title{text-align:center;max-width:700px;margin:0 auto 40px}
+.title h2{font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px}
 .title p{color:#a9aee0;font-size:17px}
-
-/* Estadísticas */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;max-width:1100px;margin:0 auto}
-.stat{text-align:center;padding:34px 20px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);transition:.35s}
-.stat:hover{transform:translateY(-10px);border-color:#818cf8;box-shadow:0 15px 40px rgba(99,102,241,.35)}
-.stat b{display:block;font-size:42px;font-weight:800}
-.stat:nth-child(1) b{color:#38bdf8}.stat:nth-child(2) b{color:#f472b6}.stat:nth-child(3) b{color:#fbbf24}.stat:nth-child(4) b{color:#34d399}
-.stat span{color:#a9aee0;font-size:14px}
 
 /* Galería de imágenes */
 .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:1100px;margin:0 auto}
@@ -97,7 +99,7 @@ button:disabled{opacity:.6;animation:none}
 #lb.on{display:flex}
 #lb img{max-width:92vw;max-height:86vh;border-radius:18px;box-shadow:0 0 80px rgba(124,58,237,.7)}
 
-/* Tarjetas de servicios */
+/* Tarjetas de beneficios */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:1100px;margin:0 auto}
 .feat{padding:36px 30px;border-radius:22px;background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);transition:.35s;position:relative;overflow:hidden}
 .feat::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--c)}
@@ -106,29 +108,9 @@ button:disabled{opacity:.6;animation:none}
 .feat h3{font-size:21px;margin-bottom:10px}
 .feat p{color:#a9aee0;line-height:1.6;font-size:15px}
 
-/* Pasos */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:1000px;margin:0 auto}
-.step{text-align:center;padding:30px 20px}
-.num{width:70px;height:70px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff;background:linear-gradient(135deg,#6366f1,#ec4899);box-shadow:0 0 30px rgba(236,72,153,.5);animation:pulso 3s infinite}
-.step h3{margin-bottom:8px}.step p{color:#a9aee0;font-size:15px;line-height:1.6}
-
-/* Testimonios */
-.tests{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:1100px;margin:0 auto}
-.test{padding:30px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
-.test .st{color:#fbbf24;letter-spacing:3px;margin-bottom:12px}
-.test p{color:#c7cbff;line-height:1.6;font-size:15px;margin-bottom:18px;font-style:italic}
-.who{display:flex;gap:12px;align-items:center;font-size:14px}
-.av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#38bdf8,#a78bfa)}
-
-/* CTA final */
-.cta{text-align:center;max-width:800px;margin:0 auto;padding:60px 30px;border-radius:30px;background:linear-gradient(135deg,rgba(99,102,241,.35),rgba(236,72,153,.35));border:1px solid rgba(255,255,255,.2)}
-.cta h2{font-size:clamp(26px,4vw,38px);margin-bottom:14px}
-.cta p{color:#d6d9ff;margin-bottom:26px}
-.cta a{display:inline-block;padding:15px 38px;border-radius:40px;background:#fff;color:#4338ca;font-weight:800;text-decoration:none;transition:.3s}
-.cta a:hover{transform:scale(1.07)}
-
-footer{position:relative;z-index:2;padding:40px 6%;text-align:center;color:#7d84c9;font-size:14px;border-top:1px solid rgba(255,255,255,.08);background:rgba(7,11,36,.8)}
-footer b{color:#c7cbff}
+footer{position:relative;z-index:2;padding:34px 6%;text-align:center;color:#7d84c9;font-size:14px;border-top:1px solid rgba(255,255,255,.08);background:rgba(7,11,36,.8)}
+footer .brand{justify-content:center;margin-bottom:10px;font-size:20px}
+footer .brand svg{width:34px;height:34px}
 
 /* Aparecer al hacer scroll */
 .rev{opacity:0;transform:translateY(40px);transition:.8s}
@@ -149,14 +131,27 @@ button.ctl.off{opacity:.45}
 #score{position:fixed;left:18px;bottom:18px;z-index:120;padding:10px 18px;border-radius:30px;background:rgba(13,18,51,.9);border:1px solid #818cf8;font-size:14px;font-weight:700;color:#e8eaff}
 
 @media(max-width:900px){
-  .hero,.grid,.steps,.tests,.gal{grid-template-columns:1fr}
-  .stats{grid-template-columns:1fr 1fr}
+  .hero,.grid,.gal{grid-template-columns:1fr}
   .menu a:not(.btn-nav){display:none}
-  section{padding:80px 5%}
+  section{padding:60px 5%}
 }
 </style>
 </head>
 <body>
+<!-- Logo reutilizable -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#ec4899"/></linearGradient>
+    <symbol id="logo" viewBox="0 0 40 40">
+      <rect width="40" height="40" rx="10" fill="url(#lg)"/>
+      <path d="M20 6c6 5 7 12 5 20H15c-2-8-1-15 5-20z" fill="#fff"/>
+      <circle cx="20" cy="16" r="2.6" fill="#4338ca"/>
+      <path d="M15 22l-5 6 5-1zM25 22l5 6-5-1z" fill="#fff"/>
+      <path d="M17.5 27q2.5 8 5 0z" fill="#fbbf24"/>
+    </symbol>
+  </defs>
+</svg>
+
 <canvas id="stars"></canvas>
 <div class="neb n1"></div><div class="neb n2"></div><div class="neb n3"></div><div class="neb n4"></div>
 
@@ -164,24 +159,19 @@ button.ctl.off{opacity:.45}
 <div class="fly" style="--d:13s;--s:0s;--z:46px">🚀</div>
 <div class="fly" style="--d:17s;--s:3s;--z:34px;left:20%">🚀</div>
 <div class="fly" style="--d:15s;--s:6s;--z:56px;left:45%">🚀</div>
-<div class="fly" style="--d:19s;--s:9s;--z:30px;left:70%">🚀</div>
 <div class="fly f-rev" style="--d:16s;--s:2s;--z:44px">🚀</div>
-<div class="fly f-rev" style="--d:21s;--s:8s;--z:36px;right:30%">🚀</div>
 <div class="fly f-hor" style="--d:22s;--s:1s;--z:44px;top:22%">🛸</div>
 <div class="fly f-hor" style="--d:26s;--s:7s;--z:38px;top:68%">🛰️</div>
 <div class="orb" style="top:14%;left:4%;--z:60px">🪐</div>
 <div class="orb" style="top:62%;right:3%;--z:54px;animation-delay:2s">🌙</div>
 <div class="orb" style="top:38%;left:46%;--z:34px;animation-delay:4s">⭐</div>
 <div class="orb" style="bottom:8%;left:8%;--z:40px;animation-delay:1s">☄️</div>
-<div class="orb" style="top:8%;right:22%;--z:32px;animation-delay:3s">✨</div>
 
 <nav>
-  <div class="brand">🚀 <span>MiStartup</span></div>
+  <a href="#suscribete" class="brand"><svg><use href="#logo"/></svg><span>MiStartup</span></a>
   <div class="menu">
     <a href="#galeria">Galería</a>
-    <a href="#servicios">Servicios</a>
-    <a href="#proceso">Cómo funciona</a>
-    <a href="#clientes">Clientes</a>
+    <a href="#beneficios">Beneficios</a>
     <a href="#suscribete" class="btn-nav">Suscribirme</a>
   </div>
 </nav>
@@ -198,6 +188,16 @@ button.ctl.off{opacity:.45}
 
   <div class="card-b" id="cardb">
     <div class="card">
+      <div class="invite-video">
+        <div class="invite-video-frame">
+          <video id="inviteVideo" controls autoplay muted playsinline preload="metadata">
+            <source src="ttsMP3-com_VoiceText_2026-11-9_12-11-42.mp4" type="video/mp4">
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+        <button type="button" class="video-sound" id="videoSound">🔊 Activar sonido</button>
+        <p class="invite-copy">Mira el video y <a href="#form">únete 👇</a></p>
+      </div>
       <div class="big" id="bigrocket">🚀</div>
       <h2>Únete a MiStartup</h2>
       <p>Recibe estrategias, novedades y ofertas directo en tu correo.</p>
@@ -211,16 +211,6 @@ button.ctl.off{opacity:.45}
   </div>
 </section>
 
-<!-- ESTADÍSTICAS -->
-<section>
-  <div class="stats">
-    <div class="stat rev"><b data-n="5000" data-pre="+">0</b><span>Suscriptores activos</span></div>
-    <div class="stat rev"><b data-n="98" data-suf="%">0</b><span>Satisfacción</span></div>
-    <div class="stat rev"><b data-n="120" data-pre="+">0</b><span>Empresas aliadas</span></div>
-    <div class="stat rev"><b data-n="24" data-suf="/7">0</b><span>Soporte disponible</span></div>
-  </div>
-</section>
-
 <!-- GALERÍA (3 imágenes del repo, misma carpeta que index.html) -->
 <section id="galeria">
   <div class="title rev"><h2>Mira lo que <span class="grad">te espera</span></h2><p>Toca una imagen para verla en grande.</p></div>
@@ -231,51 +221,19 @@ button.ctl.off{opacity:.45}
   </div>
 </section>
 
-<!-- SERVICIOS -->
-<section id="servicios">
-  <div class="title rev"><h2>Todo lo que <span class="grad">recibirás</span></h2><p>Contenido pensado para que tu startup crezca de forma sostenible.</p></div>
+<!-- BENEFICIOS -->
+<section id="beneficios">
+  <div class="title rev"><h2>Todo lo que <span class="grad">recibirás</span></h2></div>
   <div class="grid">
     <div class="feat rev" style="--c:#38bdf8;--g:rgba(56,189,248,.35)"><div class="ic">📚</div><h3>Contenido exclusivo</h3><p>Guías, plantillas y análisis que no encontrarás en ningún otro lugar.</p></div>
     <div class="feat rev" style="--c:#f472b6;--g:rgba(244,114,182,.35)"><div class="ic">🎁</div><h3>Beneficios y descuentos</h3><p>Ofertas especiales para suscriptores en herramientas y servicios aliados.</p></div>
-    <div class="feat rev" style="--c:#fbbf24;--g:rgba(251,191,36,.35)"><div class="ic">⚡</div><h3>Novedades primero</h3><p>Entérate de lanzamientos y tendencias antes que el resto del mercado.</p></div>
     <div class="feat rev" style="--c:#34d399;--g:rgba(52,211,153,.35)"><div class="ic">📈</div><h3>Estrategias de crecimiento</h3><p>Tácticas probadas de marketing, ventas y retención de clientes.</p></div>
-    <div class="feat rev" style="--c:#a78bfa;--g:rgba(167,139,250,.35)"><div class="ic">🤝</div><h3>Comunidad</h3><p>Conecta con emprendedores y profesionales de toda Latinoamérica.</p></div>
-    <div class="feat rev" style="--c:#fb923c;--g:rgba(251,146,60,.35)"><div class="ic">🛡️</div><h3>Privacidad total</h3><p>Respetamos tus datos. Cero spam y cancelación en un clic.</p></div>
-  </div>
-</section>
-
-<!-- PROCESO -->
-<section id="proceso">
-  <div class="title rev"><h2>Así de <span class="grad">fácil</span></h2><p>Empieza en menos de un minuto.</p></div>
-  <div class="steps">
-    <div class="step rev"><div class="num">1</div><h3>Escribe tu correo</h3><p>Ingresa tu email en el formulario de arriba.</p></div>
-    <div class="step rev"><div class="num">2</div><h3>Confirma</h3><p>Recibirás un correo de bienvenida al instante.</p></div>
-    <div class="step rev"><div class="num">3</div><h3>Crece</h3><p>Disfruta contenido de valor cada semana.</p></div>
-  </div>
-</section>
-
-<!-- CLIENTES -->
-<section id="clientes">
-  <div class="title rev"><h2>Lo que dicen <span class="grad">nuestros lectores</span></h2></div>
-  <div class="tests">
-    <div class="test rev"><div class="st">★★★★★</div><p>"Los consejos semanales me ayudaron a duplicar mis ventas en tres meses."</p><div class="who"><div class="av">👩‍💼</div><div><b>Laura M.</b><br>Fundadora</div></div></div>
-    <div class="test rev"><div class="st">★★★★★</div><p>"Contenido claro, directo y útil. Es el único newsletter que leo completo."</p><div class="who"><div class="av">👨‍💻</div><div><b>Carlos R.</b><br>Desarrollador</div></div></div>
-    <div class="test rev"><div class="st">★★★★★</div><p>"Los descuentos para suscriptores se pagan solos. Totalmente recomendado."</p><div class="who"><div class="av">👩‍🎨</div><div><b>Andrea P.</b><br>Diseñadora</div></div></div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section>
-  <div class="cta rev">
-    <h2>¿Listo para despegar? 🚀</h2>
-    <p>Únete hoy y recibe tu primer correo en segundos.</p>
-    <a href="#suscribete">Suscribirme ahora</a>
   </div>
 </section>
 
 <footer>
-  <p><b>🚀 MiStartup</b> · Bogotá, Colombia</p>
-  <p style="margin-top:8px">© 2026 MiStartup. Todos los derechos reservados.</p>
+  <div class="brand"><svg><use href="#logo"/></svg><span>MiStartup</span></div>
+  <p>Bogotá, Colombia · © 2026 MiStartup. Todos los derechos reservados.</p>
 </footer>
 
 <!-- Visor de imágenes -->
@@ -318,6 +276,15 @@ function loop(){
 }
 loop();
 
+/* ===== Video de bienvenida ===== */
+const inviteVideo=document.getElementById("inviteVideo"),videoSound=document.getElementById("videoSound");
+videoSound.addEventListener("click",async()=>{
+  inviteVideo.muted=!inviteVideo.muted;
+  videoSound.textContent=inviteVideo.muted?"🔊 Activar sonido":"🔇 Silenciar";
+  if(!inviteVideo.paused) return;
+  try{await inviteVideo.play()}catch(err){console.warn("No se pudo reproducir el video.",err)}
+});
+
 /* ===== Texto que se escribe solo ===== */
 const frases=["Estrategias, novedades y descuentos para hacer crecer tu startup.","Contenido de valor directo en tu bandeja de entrada.","Únete a miles de emprendedores que ya despegaron. 🚀"];
 let f=0,c=0,del=false;const typed=document.getElementById("typed");
@@ -329,17 +296,9 @@ let f=0,c=0,del=false;const typed=document.getElementById("typed");
   else{del=false;f=(f+1)%frases.length;setTimeout(esc,300)}
 })();
 
-/* ===== Aparecer al scroll + contadores ===== */
+/* ===== Aparecer al scroll ===== */
 const io=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){
-    e.target.classList.add("in");
-    const b=e.target.querySelector("[data-n]");
-    if(b&&!b.done){b.done=1;
-      const fin=+b.dataset.n,pre=b.dataset.pre||"",suf=b.dataset.suf||"";
-      let n=0;const p=Math.max(1,Math.ceil(fin/70));
-      const t=setInterval(()=>{n+=p;if(n>=fin){n=fin;clearInterval(t)}b.textContent=pre+n.toLocaleString("es-CO")+suf},25);
-    }
-  }
+  if(e.isIntersecting)e.target.classList.add("in");
 }),{threshold:.2});
 document.querySelectorAll(".rev").forEach(el=>io.observe(el));
 
@@ -406,7 +365,7 @@ musBtn.addEventListener("click",e=>{
 ["pointerdown","keydown"].forEach(ev=>addEventListener(ev,()=>{unlocked=true;audio()},{once:true}));
 
 /* sonido al pasar por botones, tarjetas y al escribir */
-document.querySelectorAll("button:not(.ctl),a,.feat,.stat,.pic").forEach(el=>el.addEventListener("mouseenter",sfx.hover));
+document.querySelectorAll("button:not(.ctl),a,.feat,.pic").forEach(el=>el.addEventListener("mouseenter",sfx.hover));
 document.getElementById("email").addEventListener("input",sfx.key);
 
 /* ===== PARTÍCULAS ===== */
