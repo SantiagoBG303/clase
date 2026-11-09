@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Suscríbete | MiStartup</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:#fff;
+      background:linear-gradient(135deg,#1e1b4b,#4f46e5,#7c3aed);
+      background-size:200% 200%;animation:fondo 12s ease infinite;
+      display:flex;justify-content:center;align-items:center;
+      padding:30px 20px;position:relative;overflow:hidden;
+    }
+    @keyframes fondo{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    /* Burbujas decorativas */
+    .bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,.08);animation:flotar 8s ease-in-out infinite}
+    .b1{width:260px;height:260px;top:-80px;left:-80px}
+    .b2{width:180px;height:180px;bottom:40px;left:12%;animation-delay:2s}
+    .b3{width:320px;height:320px;bottom:-120px;right:-90px;animation-delay:1s}
+    .b4{width:120px;height:120px;top:15%;right:14%;animation-delay:3s}
+    @keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-25px)}}
+
+    .layout{
+      position:relative;z-index:1;width:100%;max-width:1100px;
+      display:grid;grid-template-columns:1fr 400px 1fr;gap:40px;align-items:center;
+    }
+
+    /* Paneles laterales */
+    .side h2{margin:0 0 20px;font-size:22px}
+    .item{
+      display:flex;align-items:center;gap:14px;
+      background:rgba(255,255,255,.12);backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,.2);
+      padding:14px 16px;border-radius:12px;margin-bottom:14px;font-size:15px;
+    }
+    .item .ico{font-size:26px}
+    .stat{text-align:center}
+    .stat b{display:block;font-size:34px}
+    .stat span{font-size:13px;opacity:.85}
+    .right .item{justify-content:center}
+
+    /* Tarjeta central */
+    .card{
+      background:#fff;color:#333;padding:40px 35px;border-radius:16px;
+      box-shadow:0 20px 50px rgba(0,0,0,.35);text-align:center;
+    }
+    .card h1{color:#4f46e5;margin:0 0 8px}
+    .card p{margin:0 0 5px;color:#666}
+    input{width:100%;padding:13px;border:2px solid #e0e0ee;border-radius:8px;font-size:16px;margin:18px 0 12px;outline:none;transition:.2s}
+    input:focus{border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,.2)}
+    button{width:100%;padding:13px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:.2s}
+    button:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(79,70,229,.4)}
+    button:disabled{opacity:.6;transform:none}
+    #msg{margin-top:15px;font-weight:bold}
+    .small{font-size:12px;color:#999;margin-top:15px}
+
+    /* Celular: ocultar lados */
+    @media(max-width:900px){
+      .layout{grid-template-columns:1fr;max-width:420px}
+      .side{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="bubble b1"></div>
+  <div class="bubble b2"></div>
+  <div class="bubble b3"></div>
+  <div class="bubble b4"></div>
+
+  <div class="layout">
+
+    <!-- Lado izquierdo -->
+    <div class="side left">
+      <h2>¿Qué recibirás?</h2>
+      <div class="item"><span class="ico">📚</span> Contenido exclusivo cada semana</div>
+      <div class="item"><span class="ico">🎁</span> Descuentos solo para suscriptores</div>
+      <div class="item"><span class="ico">⚡</span> Novedades antes que nadie</div>
+    </div>
+
+    <!-- Centro: formulario -->
+    <div class="card">
+      <h1>🚀 MiStartup</h1>
+      <p>Suscríbete y recibe contenido exclusivo.</p>
+      <form id="form">
+        <input type="email" id="email" placeholder="tu@correo.com" required>
+        <button type="submit" id="btn">Suscribirme</button>
+      </form>
+      <div id="msg"></div>
+      <div class="small">🔒 Sin spam. Cancela cuando quieras.</div>
+    </div>
+
+    <!-- Lado derecho -->
+    <div class="side right">
+      <h2>Únete a la comunidad</h2>
+      <div class="item stat"><div><b>+5.000</b><span>suscriptores felices</span></div></div>
+      <div class="item stat"><div><b>98%</b><span>satisfacción</span></div></div>
+      <div class="item stat"><div><b>1 vez</b><span>por semana, sin saturarte</span></div></div>
+    </div>
+
+  </div>
+
+  <script>
+    const PUBLIC_KEY  = "ziKRJCG2rClKKsJ4o";
+    const SERVICE_ID  = "service_ajv244v";
+    const TEMPLATE_ID = "template_xdb1d8i";
+
+    emailjs.init({ publicKey: PUBLIC_KEY });
+
+    document.getElementById("form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("btn");
+      const msg = document.getElementById("msg");
+      btn.disabled = true;
+      msg.style.color = "#333";
+      msg.textContent = "Enviando...";
+      try {
+        await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+          to_email: document.getElementById("email").value
+        });
+        msg.style.color = "green";
+        msg.textContent = "¡Listo! Revisa tu correo 📩";
+        e.target.reset();
+      } catch (err) {
+        msg.style.color = "red";
+        msg.textContent = "Error al enviar. Intenta de nuevo.";
+        console.error(err);
+      }
+      btn.disabled = false;
+    });
+  </script>
+</body>
+</html>
