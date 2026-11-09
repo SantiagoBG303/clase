@@ -9,71 +9,114 @@
     *{box-sizing:border-box}
     body{
       margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:#fff;
-      background:linear-gradient(135deg,#1e1b4b,#4f46e5,#7c3aed);
-      background-size:200% 200%;animation:fondo 12s ease infinite;
+      background:linear-gradient(135deg,#0f0c29,#302b63,#4f46e5,#7c3aed,#0f0c29);
+      background-size:400% 400%;animation:fondo 14s ease infinite;
       display:flex;justify-content:center;align-items:center;
-      padding:30px 20px;position:relative;overflow:hidden;
+      padding:30px 20px;overflow-x:hidden;position:relative;
     }
     @keyframes fondo{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    #net{position:fixed;inset:0;z-index:0}
 
-    /* Burbujas decorativas */
-    .bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,.08);animation:flotar 8s ease-in-out infinite}
-    .b1{width:260px;height:260px;top:-80px;left:-80px}
-    .b2{width:180px;height:180px;bottom:40px;left:12%;animation-delay:2s}
-    .b3{width:320px;height:320px;bottom:-120px;right:-90px;animation-delay:1s}
-    .b4{width:120px;height:120px;top:15%;right:14%;animation-delay:3s}
-    @keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-25px)}}
+    /* Figuras flotantes */
+    .shape{position:fixed;z-index:0;opacity:.35;animation:flotar 9s ease-in-out infinite,girar 14s linear infinite}
+    .circ{border-radius:50%;background:linear-gradient(135deg,#f472b6,#fb923c)}
+    .sqr{background:linear-gradient(135deg,#38bdf8,#818cf8);border-radius:14px}
+    .tri{width:0!important;height:0!important;background:none!important;
+         border-left:35px solid transparent;border-right:35px solid transparent;border-bottom:60px solid #34d399}
+    .ring{border-radius:50%;border:8px solid #fde047;background:none}
+    @keyframes flotar{0%,100%{margin-top:0}50%{margin-top:-40px}}
+    @keyframes girar{to{rotate:360deg}}
+
+    /* Cohete que cruza la pantalla */
+    .cohete{position:fixed;z-index:1;font-size:46px;bottom:-60px;left:-60px;animation:vuelo 12s linear infinite;pointer-events:none}
+    @keyframes vuelo{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(120vw,-120vh) rotate(0)}}
 
     .layout{
-      position:relative;z-index:1;width:100%;max-width:1100px;
-      display:grid;grid-template-columns:1fr 400px 1fr;gap:40px;align-items:center;
+      position:relative;z-index:2;width:100%;max-width:1150px;
+      display:grid;grid-template-columns:1fr 410px 1fr;gap:40px;align-items:center;
     }
 
-    /* Paneles laterales */
+    /* Lados */
     .side h2{margin:0 0 20px;font-size:22px}
     .item{
       display:flex;align-items:center;gap:14px;
-      background:rgba(255,255,255,.12);backdrop-filter:blur(8px);
+      background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
       border:1px solid rgba(255,255,255,.2);
-      padding:14px 16px;border-radius:12px;margin-bottom:14px;font-size:15px;
+      padding:14px 16px;border-radius:14px;margin-bottom:14px;font-size:15px;
+      transition:.3s;
     }
-    .item .ico{font-size:26px}
-    .stat{text-align:center}
-    .stat b{display:block;font-size:34px}
+    .item:hover{transform:translateX(8px) scale(1.03);background:rgba(255,255,255,.2)}
+    .right .item:hover{transform:translateX(-8px) scale(1.03)}
+    .ico{font-size:28px;display:inline-block;animation:rebote 2.2s ease-in-out infinite}
+    .item:nth-child(3) .ico{animation-delay:.4s}
+    .item:nth-child(4) .ico{animation-delay:.8s}
+    @keyframes rebote{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px) rotate(10deg)}}
+    .left .item{animation:entraIzq .8s both}
+    .right .item{animation:entraDer .8s both}
+    .item:nth-child(3){animation-delay:.2s}.item:nth-child(4){animation-delay:.4s}
+    @keyframes entraIzq{from{opacity:0;transform:translateX(-60px)}}
+    @keyframes entraDer{from{opacity:0;transform:translateX(60px)}}
+    .stat{text-align:center;justify-content:center}
+    .stat b{display:block;font-size:36px;background:linear-gradient(90deg,#fde047,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
     .stat span{font-size:13px;opacity:.85}
-    .right .item{justify-content:center}
 
-    /* Tarjeta central */
-    .card{
-      background:#fff;color:#333;padding:40px 35px;border-radius:16px;
-      box-shadow:0 20px 50px rgba(0,0,0,.35);text-align:center;
+    /* Tarjeta con borde brillante */
+    .wrap{perspective:900px}
+    .card-border{
+      padding:3px;border-radius:20px;
+      background:conic-gradient(from var(--a,0deg),#f472b6,#38bdf8,#34d399,#fde047,#f472b6);
+      animation:borde 5s linear infinite;
+      box-shadow:0 0 40px rgba(124,58,237,.6);
     }
-    .card h1{color:#4f46e5;margin:0 0 8px}
-    .card p{margin:0 0 5px;color:#666}
-    input{width:100%;padding:13px;border:2px solid #e0e0ee;border-radius:8px;font-size:16px;margin:18px 0 12px;outline:none;transition:.2s}
-    input:focus{border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,.2)}
-    button{width:100%;padding:13px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:.2s}
-    button:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(79,70,229,.4)}
-    button:disabled{opacity:.6;transform:none}
-    #msg{margin-top:15px;font-weight:bold}
-    .small{font-size:12px;color:#999;margin-top:15px}
+    @property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
+    @keyframes borde{to{--a:360deg}}
+    .card{
+      background:#fff;color:#333;padding:40px 35px;border-radius:18px;text-align:center;
+      transition:transform .1s;transform-style:preserve-3d;
+    }
+    .logo{font-size:60px;display:inline-block;animation:rebote 2s ease-in-out infinite}
+    .card h1{margin:0 0 8px;background:linear-gradient(90deg,#4f46e5,#ec4899,#4f46e5);background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:brillo 3s linear infinite}
+    @keyframes brillo{to{background-position:200%}}
+    .card p{margin:0;color:#666;min-height:22px}
+    .cursor{display:inline-block;width:2px;height:16px;background:#4f46e5;margin-left:2px;vertical-align:middle;animation:parp 1s steps(2) infinite}
+    @keyframes parp{50%{opacity:0}}
+    input{width:100%;padding:14px;border:2px solid #e0e0ee;border-radius:10px;font-size:16px;margin:20px 0 12px;outline:none;transition:.25s}
+    input:focus{border-color:#4f46e5;box-shadow:0 0 0 4px rgba(79,70,229,.2);transform:scale(1.02)}
+    button{
+      width:100%;padding:14px;background:linear-gradient(135deg,#4f46e5,#ec4899);color:#fff;border:none;
+      border-radius:10px;font-size:17px;font-weight:bold;cursor:pointer;transition:.25s;
+      animation:pulso 2s infinite;
+    }
+    @keyframes pulso{0%{box-shadow:0 0 0 0 rgba(236,72,153,.6)}70%{box-shadow:0 0 0 16px rgba(236,72,153,0)}100%{box-shadow:0 0 0 0 rgba(236,72,153,0)}}
+    button:hover{transform:translateY(-3px) scale(1.03)}
+    button:disabled{opacity:.6;animation:none;transform:none}
+    #msg{margin-top:15px;font-weight:bold;min-height:22px}
+    .small{font-size:12px;color:#999;margin-top:14px}
 
-    /* Celular: ocultar lados */
+    /* Confeti */
+    .conf{position:fixed;top:-20px;z-index:99;font-size:24px;pointer-events:none;animation:caer linear forwards}
+    @keyframes caer{to{transform:translateY(110vh) rotate(720deg);opacity:.8}}
+
     @media(max-width:900px){
-      .layout{grid-template-columns:1fr;max-width:420px}
+      .layout{grid-template-columns:1fr;max-width:430px}
       .side{display:none}
     }
   </style>
 </head>
 <body>
-  <div class="bubble b1"></div>
-  <div class="bubble b2"></div>
-  <div class="bubble b3"></div>
-  <div class="bubble b4"></div>
+  <canvas id="net"></canvas>
+
+  <!-- Figuras flotantes -->
+  <div class="shape circ" style="width:90px;height:90px;top:8%;left:6%"></div>
+  <div class="shape sqr"  style="width:70px;height:70px;top:70%;left:10%;animation-delay:1s"></div>
+  <div class="shape tri"  style="top:15%;right:8%;animation-delay:2s"></div>
+  <div class="shape ring" style="width:100px;height:100px;bottom:10%;right:12%;animation-delay:3s"></div>
+  <div class="shape sqr"  style="width:50px;height:50px;top:45%;right:4%;animation-delay:4s"></div>
+  <div class="shape circ" style="width:60px;height:60px;bottom:8%;left:45%;animation-delay:2s"></div>
+  <div class="cohete">🚀</div>
 
   <div class="layout">
 
-    <!-- Lado izquierdo -->
     <div class="side left">
       <h2>¿Qué recibirás?</h2>
       <div class="item"><span class="ico">📚</span> Contenido exclusivo cada semana</div>
@@ -81,29 +124,101 @@
       <div class="item"><span class="ico">⚡</span> Novedades antes que nadie</div>
     </div>
 
-    <!-- Centro: formulario -->
-    <div class="card">
-      <h1>🚀 MiStartup</h1>
-      <p>Suscríbete y recibe contenido exclusivo.</p>
-      <form id="form">
-        <input type="email" id="email" placeholder="tu@correo.com" required>
-        <button type="submit" id="btn">Suscribirme</button>
-      </form>
-      <div id="msg"></div>
-      <div class="small">🔒 Sin spam. Cancela cuando quieras.</div>
+    <div class="wrap">
+      <div class="card-border">
+        <div class="card" id="card">
+          <div class="logo">🚀</div>
+          <h1>MiStartup</h1>
+          <p><span id="typed"></span><span class="cursor"></span></p>
+          <form id="form">
+            <input type="email" id="email" placeholder="tu@correo.com" required>
+            <button type="submit" id="btn">Suscribirme ✨</button>
+          </form>
+          <div id="msg"></div>
+          <div class="small">🔒 Sin spam. Cancela cuando quieras.</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Lado derecho -->
     <div class="side right">
       <h2>Únete a la comunidad</h2>
-      <div class="item stat"><div><b>+5.000</b><span>suscriptores felices</span></div></div>
-      <div class="item stat"><div><b>98%</b><span>satisfacción</span></div></div>
-      <div class="item stat"><div><b>1 vez</b><span>por semana, sin saturarte</span></div></div>
+      <div class="item stat"><div><b data-n="5000" data-pre="+">0</b><span>suscriptores felices</span></div></div>
+      <div class="item stat"><div><b data-n="98" data-suf="%">0</b><span>de satisfacción</span></div></div>
+      <div class="item stat"><div><b data-n="1" data-suf=" vez">0</b><span>por semana, sin saturarte</span></div></div>
     </div>
 
   </div>
 
   <script>
+    /* ===== Red de partículas ===== */
+    const cv = document.getElementById("net"), cx = cv.getContext("2d");
+    let W, H, pts = [], mouse = {x:null, y:null};
+    function size(){ W = cv.width = innerWidth; H = cv.height = innerHeight; }
+    size(); addEventListener("resize", size);
+    addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    for(let i=0;i<70;i++) pts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.8,vy:(Math.random()-.5)*.8});
+    function draw(){
+      cx.clearRect(0,0,W,H);
+      pts.forEach((p,i)=>{
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>W) p.vx*=-1;
+        if(p.y<0||p.y>H) p.vy*=-1;
+        cx.beginPath(); cx.arc(p.x,p.y,2.5,0,6.3); cx.fillStyle="rgba(255,255,255,.8)"; cx.fill();
+        for(let j=i+1;j<pts.length;j++){
+          const q=pts[j], d=Math.hypot(p.x-q.x,p.y-q.y);
+          if(d<130){ cx.strokeStyle="rgba(255,255,255,"+(1-d/130)*.35+")"; cx.beginPath(); cx.moveTo(p.x,p.y); cx.lineTo(q.x,q.y); cx.stroke(); }
+        }
+        if(mouse.x!==null){
+          const d=Math.hypot(p.x-mouse.x,p.y-mouse.y);
+          if(d<160){ cx.strokeStyle="rgba(253,224,71,"+(1-d/160)*.6+")"; cx.beginPath(); cx.moveTo(p.x,p.y); cx.lineTo(mouse.x,mouse.y); cx.stroke(); }
+        }
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    /* ===== Texto que se escribe solo ===== */
+    const frases = ["Suscríbete y recibe contenido exclusivo.", "Descuentos y novedades cada semana.", "Únete a miles de personas. 🎉"];
+    let f=0, c=0, borrando=false;
+    const typed = document.getElementById("typed");
+    (function escribir(){
+      const t = frases[f];
+      typed.textContent = t.slice(0,c);
+      if(!borrando && c<t.length){ c++; setTimeout(escribir,55); }
+      else if(!borrando){ borrando=true; setTimeout(escribir,1800); }
+      else if(c>0){ c--; setTimeout(escribir,25); }
+      else { borrando=false; f=(f+1)%frases.length; setTimeout(escribir,300); }
+    })();
+
+    /* ===== Contadores ===== */
+    document.querySelectorAll("[data-n]").forEach(el=>{
+      const fin=+el.dataset.n, pre=el.dataset.pre||"", suf=el.dataset.suf||"";
+      let n=0; const paso=Math.max(1,Math.ceil(fin/80));
+      const t=setInterval(()=>{ n+=paso; if(n>=fin){n=fin;clearInterval(t);} el.textContent=pre+n.toLocaleString("es-CO")+suf; },25);
+    });
+
+    /* ===== Tarjeta 3D con el mouse ===== */
+    const card = document.getElementById("card");
+    document.addEventListener("mousemove", e=>{
+      const x=(e.clientX/innerWidth-.5)*14, y=(e.clientY/innerHeight-.5)*-14;
+      card.style.transform=`rotateY(${x}deg) rotateX(${y}deg)`;
+    });
+
+    /* ===== Confeti ===== */
+    function confeti(){
+      const e=["🎉","✨","🎊","⭐","💜","🚀","🎈"];
+      for(let i=0;i<60;i++){
+        const s=document.createElement("span"); s.className="conf";
+        s.textContent=e[Math.floor(Math.random()*e.length)];
+        s.style.left=Math.random()*100+"vw";
+        s.style.animationDuration=(2+Math.random()*3)+"s";
+        s.style.fontSize=(16+Math.random()*24)+"px";
+        document.body.appendChild(s);
+        setTimeout(()=>s.remove(),5500);
+      }
+    }
+
+    /* ===== EmailJS ===== */
     const PUBLIC_KEY  = "ziKRJCG2rClKKsJ4o";
     const SERVICE_ID  = "service_ajv244v";
     const TEMPLATE_ID = "template_xdb1d8i";
@@ -124,6 +239,7 @@
         msg.style.color = "green";
         msg.textContent = "¡Listo! Revisa tu correo 📩";
         e.target.reset();
+        confeti();
       } catch (err) {
         msg.style.color = "red";
         msg.textContent = "Error al enviar. Intenta de nuevo.";
