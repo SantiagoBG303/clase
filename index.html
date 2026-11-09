@@ -52,13 +52,14 @@ section{position:relative;z-index:2;padding:100px 6%}
 @keyframes parp{50%{opacity:0}}
 .checks{display:flex;gap:22px;flex-wrap:wrap;font-size:14px;color:#c7cbff}
 .checks span::before{content:"✔ ";color:#34d399}
+.hint{margin-top:22px;font-size:13px;color:#7d84c9}
 
 /* Tarjeta de suscripción */
-.card-b{padding:3px;border-radius:24px;background:conic-gradient(from var(--a,0deg),#38bdf8,#a78bfa,#f472b6,#fbbf24,#34d399,#38bdf8);animation:giro 6s linear infinite;box-shadow:0 0 60px rgba(124,58,237,.5)}
+.card-b{padding:3px;border-radius:24px;background:conic-gradient(from var(--a,0deg),#38bdf8,#a78bfa,#f472b6,#fbbf24,#34d399,#38bdf8);animation:giro 6s linear infinite;box-shadow:0 0 60px rgba(124,58,237,.5);transition:transform .15s ease-out}
 @property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
 @keyframes giro{to{--a:360deg}}
 .card{background:#0d1233;border-radius:22px;padding:42px 36px;text-align:center}
-.card .big{font-size:58px;display:inline-block;animation:rebote 2s ease-in-out infinite}
+.card .big{font-size:58px;display:inline-block;animation:rebote 2s ease-in-out infinite;cursor:pointer}
 @keyframes rebote{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-12px) rotate(6deg)}}
 .card h2{font-size:26px;margin:10px 0 8px}
 .card p{color:#a9aee0;font-size:15px;margin-bottom:6px}
@@ -84,6 +85,17 @@ button:disabled{opacity:.6;animation:none}
 .stat b{display:block;font-size:42px;font-weight:800}
 .stat:nth-child(1) b{color:#38bdf8}.stat:nth-child(2) b{color:#f472b6}.stat:nth-child(3) b{color:#fbbf24}.stat:nth-child(4) b{color:#34d399}
 .stat span{color:#a9aee0;font-size:14px}
+
+/* Galería de imágenes */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:1100px;margin:0 auto}
+.pic{position:relative;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.15);aspect-ratio:4/3;cursor:zoom-in;background:linear-gradient(135deg,#6d28d9,#ec4899);transition:.4s;margin:0}
+.pic img{width:100%;height:100%;object-fit:cover;display:block;transition:.6s}
+.pic:hover{transform:translateY(-10px) scale(1.03);box-shadow:0 20px 50px rgba(124,58,237,.55)}
+.pic:hover img{transform:scale(1.1)}
+.pic figcaption{position:absolute;left:0;right:0;bottom:0;padding:18px 16px 14px;background:linear-gradient(transparent,rgba(7,11,36,.92));font-weight:700;font-size:15px}
+#lb{position:fixed;inset:0;z-index:200;background:rgba(7,11,36,.92);display:none;align-items:center;justify-content:center;cursor:zoom-out;padding:24px}
+#lb.on{display:flex}
+#lb img{max-width:92vw;max-height:86vh;border-radius:18px;box-shadow:0 0 80px rgba(124,58,237,.7)}
 
 /* Tarjetas de servicios */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:1100px;margin:0 auto}
@@ -122,12 +134,22 @@ footer b{color:#c7cbff}
 .rev{opacity:0;transform:translateY(40px);transition:.8s}
 .rev.in{opacity:1;transform:none}
 
-/* Confeti */
+/* Confeti y partículas */
 .conf{position:fixed;top:-30px;z-index:99;pointer-events:none;animation:caer linear forwards}
 @keyframes caer{to{transform:translateY(112vh) rotate(720deg)}}
+.part{position:fixed;z-index:98;pointer-events:none;animation:salta .9s ease-out forwards;transform:translate(-50%,-50%)}
+@keyframes salta{to{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.3);opacity:0}}
+.trail{position:fixed;z-index:97;pointer-events:none;animation:desv .8s ease-out forwards;transform:translate(-50%,-50%)}
+@keyframes desv{to{transform:translate(-50%,-90%) scale(.2);opacity:0}}
+
+/* Controles de sonido y marcador */
+.ctls{position:fixed;right:18px;bottom:18px;z-index:120;display:flex;gap:10px}
+button.ctl{width:48px;height:48px;padding:0;border-radius:50%;animation:none;background:rgba(13,18,51,.9);border:1px solid #818cf8;font-size:22px;box-shadow:0 0 20px rgba(129,140,248,.4)}
+button.ctl.off{opacity:.45}
+#score{position:fixed;left:18px;bottom:18px;z-index:120;padding:10px 18px;border-radius:30px;background:rgba(13,18,51,.9);border:1px solid #818cf8;font-size:14px;font-weight:700;color:#e8eaff}
 
 @media(max-width:900px){
-  .hero,.grid,.steps,.tests{grid-template-columns:1fr}
+  .hero,.grid,.steps,.tests,.gal{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr 1fr}
   .menu a:not(.btn-nav){display:none}
   section{padding:80px 5%}
@@ -138,7 +160,7 @@ footer b{color:#c7cbff}
 <canvas id="stars"></canvas>
 <div class="neb n1"></div><div class="neb n2"></div><div class="neb n3"></div><div class="neb n4"></div>
 
-<!-- Cohetes y objetos espaciales -->
+<!-- Cohetes y objetos espaciales (¡se pueden atrapar con clic!) -->
 <div class="fly" style="--d:13s;--s:0s;--z:46px">🚀</div>
 <div class="fly" style="--d:17s;--s:3s;--z:34px;left:20%">🚀</div>
 <div class="fly" style="--d:15s;--s:6s;--z:56px;left:45%">🚀</div>
@@ -156,6 +178,7 @@ footer b{color:#c7cbff}
 <nav>
   <div class="brand">🚀 <span>MiStartup</span></div>
   <div class="menu">
+    <a href="#galeria">Galería</a>
     <a href="#servicios">Servicios</a>
     <a href="#proceso">Cómo funciona</a>
     <a href="#clientes">Clientes</a>
@@ -170,11 +193,12 @@ footer b{color:#c7cbff}
     <h1>Impulsa tu negocio al <span class="grad">siguiente nivel</span></h1>
     <p class="lead"><span id="typed"></span><span class="cursor"></span></p>
     <div class="checks"><span>Contenido exclusivo</span><span>Descuentos</span><span>Sin spam</span></div>
+    <p class="hint">🎮 Juega: haz clic en los cohetes y planetas para atraparlos. Activa el sonido con 🔊 y la música con 🎵.</p>
   </div>
 
-  <div class="card-b">
+  <div class="card-b" id="cardb">
     <div class="card">
-      <div class="big">🚀</div>
+      <div class="big" id="bigrocket">🚀</div>
       <h2>Únete a MiStartup</h2>
       <p>Recibe estrategias, novedades y ofertas directo en tu correo.</p>
       <form id="form">
@@ -194,6 +218,16 @@ footer b{color:#c7cbff}
     <div class="stat rev"><b data-n="98" data-suf="%">0</b><span>Satisfacción</span></div>
     <div class="stat rev"><b data-n="120" data-pre="+">0</b><span>Empresas aliadas</span></div>
     <div class="stat rev"><b data-n="24" data-suf="/7">0</b><span>Soporte disponible</span></div>
+  </div>
+</section>
+
+<!-- GALERÍA (3 imágenes del repo, misma carpeta que index.html) -->
+<section id="galeria">
+  <div class="title rev"><h2>Mira lo que <span class="grad">te espera</span></h2><p>Toca una imagen para verla en grande.</p></div>
+  <div class="gal">
+    <figure class="pic rev"><img src="image.png" alt="MiStartup 1" onerror="this.style.display='none'"><figcaption>🚀 Despega con nosotros</figcaption></figure>
+    <figure class="pic rev"><img src="image%20copy.png" alt="MiStartup 2" onerror="this.style.display='none'"><figcaption>📈 Crece sin límites</figcaption></figure>
+    <figure class="pic rev"><img src="image%20copy%202.png" alt="MiStartup 3" onerror="this.style.display='none'"><figcaption>🌟 Únete a la comunidad</figcaption></figure>
   </div>
 </section>
 
@@ -243,6 +277,16 @@ footer b{color:#c7cbff}
   <p><b>🚀 MiStartup</b> · Bogotá, Colombia</p>
   <p style="margin-top:8px">© 2026 MiStartup. Todos los derechos reservados.</p>
 </footer>
+
+<!-- Visor de imágenes -->
+<div id="lb"><img id="lbimg" alt=""></div>
+
+<!-- Controles -->
+<div id="score">🎯 Atrapados: <span id="sc">0</span></div>
+<div class="ctls">
+  <button class="ctl" id="sfxBtn" title="Efectos de sonido">🔊</button>
+  <button class="ctl off" id="musBtn" title="Música ambiente">🎵</button>
+</div>
 
 <script>
 /* ===== Cielo estrellado ===== */
@@ -313,6 +357,123 @@ function confeti(){
   }
 }
 
+/* ===== SONIDO (Web Audio, sin archivos) ===== */
+let ac=null,unlocked=false,sfxOn=true,musicOn=false,music=null;
+function audio(){
+  if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();
+  if(ac.state==="suspended")ac.resume();
+  return ac;
+}
+function tone(freq,dur=.15,type="sine",vol=.08,delay=0,slideTo){
+  if(!sfxOn||!unlocked)return;
+  const a=audio(),t=a.currentTime+delay,o=a.createOscillator(),g=a.createGain();
+  o.type=type;o.frequency.setValueAtTime(freq,t);
+  if(slideTo)o.frequency.exponentialRampToValueAtTime(slideTo,t+dur);
+  g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+dur+.03);
+}
+const sfx={
+  click:()=>tone(660,.1,"triangle",.07),
+  hover:()=>tone(880,.05,"sine",.025),
+  key:()=>tone(600+Math.random()*400,.04,"square",.015),
+  whoosh:()=>tone(180,.45,"sawtooth",.05,0,1400),
+  pop:()=>{tone(500,.12,"triangle",.08,0,1000);tone(1200,.1,"sine",.05,.05)},
+  win:()=>[523,659,784,1046,1318].forEach((n,i)=>tone(n,.25,"triangle",.08,i*.1)),
+  error:()=>tone(220,.35,"square",.06,0,90)
+};
+function startMusic(){
+  const a=audio();
+  const g=a.createGain();g.gain.value=0;g.gain.linearRampToValueAtTime(.045,a.currentTime+2);g.connect(a.destination);
+  const lfo=a.createOscillator(),lg=a.createGain();lfo.frequency.value=.15;lg.gain.value=.02;lfo.connect(lg);lg.connect(g.gain);lfo.start();
+  const oscs=[110,164.81,220,277.18].map((fq,i)=>{const o=a.createOscillator();o.type=i%2?"triangle":"sine";o.frequency.value=fq;o.detune.value=(i-1.5)*6;o.connect(g);o.start();return o});
+  music={g,lfo,oscs};
+}
+function stopMusic(){
+  if(!music)return;const a=audio(),m=music;music=null;
+  m.g.gain.cancelScheduledValues(a.currentTime);m.g.gain.setValueAtTime(m.g.gain.value,a.currentTime);m.g.gain.linearRampToValueAtTime(0,a.currentTime+.6);
+  setTimeout(()=>{m.oscs.forEach(o=>o.stop());m.lfo.stop()},700);
+}
+const sfxBtn=document.getElementById("sfxBtn"),musBtn=document.getElementById("musBtn");
+sfxBtn.addEventListener("click",e=>{
+  e.stopPropagation();unlocked=true;sfxOn=!sfxOn;
+  sfxBtn.textContent=sfxOn?"🔊":"🔇";sfxBtn.classList.toggle("off",!sfxOn);if(sfxOn)sfx.click();
+});
+musBtn.addEventListener("click",e=>{
+  e.stopPropagation();unlocked=true;musicOn=!musicOn;
+  musBtn.classList.toggle("off",!musicOn);
+  musicOn?startMusic():stopMusic();
+});
+["pointerdown","keydown"].forEach(ev=>addEventListener(ev,()=>{unlocked=true;audio()},{once:true}));
+
+/* sonido al pasar por botones, tarjetas y al escribir */
+document.querySelectorAll("button:not(.ctl),a,.feat,.stat,.pic").forEach(el=>el.addEventListener("mouseenter",sfx.hover));
+document.getElementById("email").addEventListener("input",sfx.key);
+
+/* ===== PARTÍCULAS ===== */
+function burst(x,y,list){
+  const em=list||["✨","💫","⭐","🌟","💜"];
+  for(let i=0;i<12;i++){
+    const s=document.createElement("span");s.className="part";s.textContent=em[Math.floor(Math.random()*em.length)];
+    const ang=Math.random()*6.28,d=60+Math.random()*90;
+    s.style.left=x+"px";s.style.top=y+"px";s.style.fontSize=(14+Math.random()*16)+"px";
+    s.style.setProperty("--dx",Math.cos(ang)*d+"px");s.style.setProperty("--dy",Math.sin(ang)*d+"px");
+    document.body.appendChild(s);setTimeout(()=>s.remove(),950);
+  }
+}
+
+/* ===== Juego: atrapar cohetes y planetas con clic ===== */
+let score=0;const sc=document.getElementById("sc");
+function clickGame(e){
+  const hit=[...document.querySelectorAll(".fly,.orb")].find(el=>{
+    const r=el.getBoundingClientRect();
+    return e.clientX>=r.left-12&&e.clientX<=r.right+12&&e.clientY>=r.top-12&&e.clientY<=r.bottom+12;
+  });
+  if(hit){
+    const r=hit.getBoundingClientRect();
+    burst(r.left+r.width/2,r.top+r.height/2,["💥","✨","🔥","⭐"]);
+    sfx.pop();score++;sc.textContent=score;
+    if(score%5===0){sfx.win();confeti()}
+  }else if(!e.target.closest("input,button,a,.pic,#lb,.ctls")){
+    burst(e.clientX,e.clientY);sfx.click();
+  }
+}
+document.addEventListener("pointerdown",clickGame);
+
+/* ===== Estela de brillos que sigue al mouse ===== */
+let lastT=0;
+addEventListener("mousemove",e=>{
+  const n=Date.now();if(n-lastT<45)return;lastT=n;
+  const s=document.createElement("span");s.className="trail";
+  s.textContent=["✦","✧","·","✨"][Math.floor(Math.random()*4)];
+  s.style.left=e.clientX+"px";s.style.top=e.clientY+"px";
+  s.style.color=cols[Math.floor(Math.random()*cols.length)];
+  s.style.fontSize=(10+Math.random()*12)+"px";
+  document.body.appendChild(s);setTimeout(()=>s.remove(),800);
+});
+
+/* ===== Tarjeta que se inclina con el mouse ===== */
+const cardb=document.getElementById("cardb");
+cardb.addEventListener("mousemove",e=>{
+  const r=cardb.getBoundingClientRect();
+  const rx=((e.clientY-r.top)/r.height-.5)*-12,ry=((e.clientX-r.left)/r.width-.5)*12;
+  cardb.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+});
+cardb.addEventListener("mouseleave",()=>{cardb.style.transform=""});
+
+/* cohete grande de la tarjeta: despega al hacer clic */
+document.getElementById("bigrocket").addEventListener("click",e=>{
+  const r=e.target.getBoundingClientRect();
+  burst(r.left+r.width/2,r.top+r.height/2,["🔥","💨","✨"]);sfx.whoosh();
+});
+
+/* ===== Visor de imágenes ===== */
+const lb=document.getElementById("lb"),lbimg=document.getElementById("lbimg");
+document.querySelectorAll(".pic").forEach(p=>p.addEventListener("click",()=>{
+  lbimg.src=p.querySelector("img").src;lb.classList.add("on");sfx.pop();
+}));
+lb.addEventListener("click",()=>lb.classList.remove("on"));
+addEventListener("keydown",e=>{if(e.key==="Escape")lb.classList.remove("on")});
+
 /* ===== EmailJS ===== */
 const PUBLIC_KEY="ziKRJCG2rClKKsJ4o";
 const SERVICE_ID="service_ajv244v";
@@ -322,14 +483,15 @@ emailjs.init({publicKey:PUBLIC_KEY});
 document.getElementById("form").addEventListener("submit",async(e)=>{
   e.preventDefault();
   const btn=document.getElementById("btn"),msg=document.getElementById("msg");
+  sfx.whoosh();
   btn.disabled=true;msg.style.color="#c7cbff";msg.textContent="Enviando...";
   try{
     await emailjs.send(SERVICE_ID,TEMPLATE_ID,{to_email:document.getElementById("email").value});
     msg.style.color="#34d399";msg.textContent="¡Listo! Revisa tu correo 📩";
-    e.target.reset();confeti();
+    e.target.reset();confeti();sfx.win();
   }catch(err){
     msg.style.color="#f87171";msg.textContent="Error al enviar. Intenta de nuevo.";
-    console.error(err);
+    sfx.error();console.error(err);
   }
   btn.disabled=false;
 });
